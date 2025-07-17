@@ -1,0 +1,28 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+/**
+ * Renders the array as bars with visual highlighting
+ */
+class BarRenderer {
+private:
+    static const int ARRAY_SIZE = 7;
+    static const int WINDOW_WIDTH = 800;
+    static const int WINDOW_HEIGHT = 600;
+    static const int BAR_AREA_HEIGHT = 300;
+    static const int BAR_Y_OFFSET = 200;
+    
+    sf::RectangleShape bars[ARRAY_SIZE];
+    sf::Color normalColor;
+    sf::Color swapColor;
+    sf::Color compareColor;
+    
+    int barWidth;
+    int maxBarHeight;
+    
+public:
+    BarRenderer();
+    void updateBars(int array[], int size, int highlight1 = -1, int highlight2 = -1);
+    void render(sf::RenderWindow& window);
+    void setColors(sf::Color normal, sf::Color swap, sf::Color compare);
+};
