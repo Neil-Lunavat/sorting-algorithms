@@ -5,32 +5,33 @@ An interactive, educational sorting algorithm visualizer designed for students t
 ## 🎯 Project Vision
 
 This project is specifically designed to:
-- **Help students learn** sorting algorithms through visual, step-by-step execution
-- **Encourage contributions** with a simple, beginner-friendly interface
-- **Focus on education** over production-level optimization
-- **Enable frame-by-frame analysis** of algorithm behavior
+
+-   **Help students learn** sorting algorithms through visual, step-by-step execution
+-   **Encourage contributions** with a simple, beginner-friendly interface
+-   **Focus on education** over production-level optimization
+-   **Enable frame-by-frame analysis** of algorithm behavior
 
 ## ✨ Features
 
-- **Small Array Size**: 7 elements for clear visualization and easier understanding
-- **Step-by-Step Control**: Pause and step through algorithms one swap at a time
-- **Visual Highlighting**: Elements being swapped are highlighted in red
-- **Frame-Perfect Timing**: 60 FPS with one swap per frame
-- **Multiple Algorithms**: Easy to add new sorting algorithms
-- **Simple Interface**: Minimal learning curve for contributors
+-   **Small Array Size**: 7 elements for clear visualization and easier understanding
+-   **Step-by-Step Control**: Pause and step through algorithms one swap at a time
+-   **Visual Highlighting**: Elements being swapped are highlighted in red
+-   **Frame-Perfect Timing**: 60 FPS with one swap per frame
+-   **Multiple Algorithms**: Easy to add new sorting algorithms
+-   **Simple Interface**: Minimal learning curve for contributors
 
 ## 🔧 Controls
 
-- **SPACE**: Pause/Resume algorithm execution
-- **LEFT/RIGHT Arrow Keys**: Step backward/forward through algorithm (when paused)
-- **R**: Reset and randomize array
-- **TAB**: Switch between different sorting algorithms
-- **ESC**: Exit the application
+-   **SPACE**: Pause/Resume algorithm execution
+-   **LEFT/RIGHT Arrow Keys**: Step backward/forward through algorithm (when paused)
+-   **R**: Reset and randomize array
+-   **TAB**: Switch between different sorting algorithms
+-   **ESC**: Exit the application
 
 ## 📚 Currently Implemented Algorithms
 
 1. **Bubble Sort** - Compares adjacent elements and swaps them if they're in wrong order
-2. **Selection Sort** - Finds the minimum element and places it at the beginning  
+2. **Selection Sort** - Finds the minimum element and places it at the beginning
 3. **Insertion Sort** - Builds the sorted array one element at a time
 
 ## 🚀 Quick Start
@@ -54,6 +55,7 @@ This project is designed to be **beginner-friendly**. You don't need to understa
 ### Simple Algorithm Interface
 
 All you need to know:
+
 ```cpp
 SwapResult yourAlgorithm(int array[], int size, int* state) {
     // Your simple sorting logic here
@@ -63,31 +65,33 @@ SwapResult yourAlgorithm(int array[], int size, int* state) {
 
 ### What Makes This Project Special
 
-- **No complex OOP**: Simple C-style functions
-- **No pointers/references confusion**: Basic array manipulation
-- **No SFML knowledge required**: Just focus on your algorithm
-- **Step-by-step execution**: One swap per function call
-- **Visual feedback**: See exactly what your algorithm does
+-   **No complex OOP**: Simple C-style functions
+-   **No pointers/references confusion**: Basic array manipulation
+-   **No SFML knowledge required**: Just focus on your algorithm
+-   **Step-by-step execution**: One swap per function call
+-   **Visual feedback**: See exactly what your algorithm does
 
 ## 📖 Documentation
 
-- **[Building Guide](docs/BUILDING.md)**: How to compile and run
-- **[Contributing Guide](docs/CONTRIBUTING.md)**: Step-by-step guide for adding algorithms
-- **[Algorithm Template](algorithms/template.cpp)**: Starting point for new algorithms
+-   **[Building Guide](docs/BUILDING.md)**: How to compile and run
+-   **[Contributing Guide](docs/CONTRIBUTING.md)**: Step-by-step guide for adding algorithms
+-   **[Algorithm Template](algorithms/template.cpp)**: Starting point for new algorithms
 
 ## 🏗️ Architecture
 
 ### New Simplified Design
-- **Algorithms**: Simple C functions that perform one swap per call
-- **Visualization**: Professional SFML rendering (you don't need to touch this)
-- **Registration**: Automatic algorithm discovery and registration
-- **UI**: Clean, educational interface with step-by-step controls
+
+-   **Algorithms**: Simple C functions that perform one swap per call
+-   **Visualization**: Professional SFML rendering (you don't need to touch this)
+-   **Registration**: Automatic algorithm discovery and registration
+-   **UI**: Clean, educational interface with step-by-step controls
 
 ### Why This Design?
-- **Separation of Concerns**: Algorithm logic is separate from visualization
-- **Easy Contribution**: Students can add algorithms without understanding SFML
-- **Educational Focus**: Frame-by-frame execution aids learning
-- **Maintainable**: Simple code structure, easy to debug
+
+-   **Separation of Concerns**: Algorithm logic is separate from visualization
+-   **Easy Contribution**: Students can add algorithms without understanding SFML
+-   **Educational Focus**: Frame-by-frame execution aids learning
+-   **Maintainable**: Simple code structure, easy to debug
 
 ### Visual Features
 
@@ -135,7 +139,7 @@ void NewSort::reset(SortState& state) {
 }
 ```
 
-3. **Add** to the main.cpp algorithms list and key handler
+3. **Register** the algorithm in the algorithm registry system
 
 ## Technical Details
 

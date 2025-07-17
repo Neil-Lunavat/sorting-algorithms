@@ -8,7 +8,8 @@ static std::vector<AlgorithmInfo> registeredAlgorithms;
  * Register a new sorting algorithm
  * Call this function to add your algorithm to the visualizer
  */
-void registerAlgorithm(const char* name, SortingFunction function, int stateSize) {
+void registerAlgorithm(const char *name, SortingFunction function, int stateSize)
+{
     AlgorithmInfo info;
     info.name = name;
     info.function = function;
@@ -19,16 +20,20 @@ void registerAlgorithm(const char* name, SortingFunction function, int stateSize
 /**
  * Get all registered algorithms
  */
-std::vector<AlgorithmInfo> getRegisteredAlgorithms() {
+std::vector<AlgorithmInfo> getRegisteredAlgorithms()
+{
     return registeredAlgorithms;
 }
 
 /**
  * Get algorithm by name
  */
-AlgorithmInfo* getAlgorithmByName(const char* name) {
-    for (auto& algo : registeredAlgorithms) {
-        if (strcmp(algo.name, name) == 0) {
+AlgorithmInfo *getAlgorithmByName(const char *name)
+{
+    for (auto &algo : registeredAlgorithms)
+    {
+        if (strcmp(algo.name, name) == 0)
+        {
             return &algo;
         }
     }
@@ -38,8 +43,10 @@ AlgorithmInfo* getAlgorithmByName(const char* name) {
 /**
  * Get algorithm by index
  */
-AlgorithmInfo* getAlgorithmByIndex(int index) {
-    if (index >= 0 && index < registeredAlgorithms.size()) {
+AlgorithmInfo *getAlgorithmByIndex(int index)
+{
+    if (index >= 0 && index < static_cast<int>(registeredAlgorithms.size()))
+    {
         return &registeredAlgorithms[index];
     }
     return nullptr;
@@ -48,6 +55,7 @@ AlgorithmInfo* getAlgorithmByIndex(int index) {
 /**
  * Get number of registered algorithms
  */
-int getAlgorithmCount() {
+int getAlgorithmCount()
+{
     return registeredAlgorithms.size();
 }

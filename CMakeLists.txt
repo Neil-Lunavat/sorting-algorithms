@@ -13,7 +13,7 @@ list(REMOVE_ITEM ALGORITHM_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/algorithms/templ
 
 # Create executable
 add_executable(${PROJECT_NAME} 
-    src/new_main.cpp
+    src/main.cpp
     src/visualizer.cpp
     src/ui/simple_ui.cpp
     src/ui/bar_renderer.cpp
