@@ -35,26 +35,21 @@ bool SortingVisualizer::initialize()
 
     // Check if algorithms are registered
     int algorithmCount = getAlgorithmCount();
-    std::cout << "Found " << algorithmCount << " algorithms registered." << std::endl;
 
     if (algorithmCount > 0)
     {
         currentAlgorithm = getAlgorithmByIndex(0);
         if (currentAlgorithm)
         {
-            std::cout << "Using algorithm: " << currentAlgorithm->name << std::endl;
             resetAlgorithm();
         }
         else
         {
-            std::cout << "Error: Failed to get algorithm by index 0" << std::endl;
             return false;
         }
     }
     else
     {
-        std::cout << "Error: No algorithms registered!" << std::endl;
-        std::cout << "Make sure algorithm files are compiled and linked." << std::endl;
         return false;
     }
 

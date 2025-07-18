@@ -3,7 +3,6 @@
 // Forward declarations of algorithm functions
 extern SwapResult bubbleSort(int array[], int size, int *state);
 extern SwapResult selectionSort(int array[], int size, int *state);
-extern SwapResult insertionSort(int array[], int size, int *state);
 extern SwapResult shellSort(int array[], int size, int *state);
 extern SwapResult mergeSort(int array[], int size, int *state);
 
@@ -15,7 +14,6 @@ void registerAllAlgorithms()
 {
     registerAlgorithm("Bubble Sort", bubbleSort, 2);
     registerAlgorithm("Selection Sort", selectionSort, 3);
-    registerAlgorithm("Insertion Sort", insertionSort, 3);
     registerAlgorithm("Shell Sort", shellSort, 5);
-    registerAlgorithm("Merge Sort", mergeSort, 17);
+    registerAlgorithm("Merge Sort", mergeSort, 7);
 }

@@ -16,7 +16,6 @@ bool SimpleUI::initialize()
     else
     {
         // If no font loads, we'll use SFML's default font (which should work)
-        std::cout << "Warning: Could not load system font, using default rendering" << std::endl;
     }
 
     // Setup algorithm name text
@@ -73,11 +72,11 @@ void SimpleUI::updateInstructions(bool paused)
 {
     if (paused)
     {
-        instructions.setString("PAUSED - SPACE: resume | LEFT/RIGHT: step | R: reset | TAB: next algo | +/-: size | 1-5: select algo");
+        instructions.setString("PAUSED - SPACE: resume | LEFT/RIGHT: step | R: reset | TAB: next algo | +/-: size | 1-4: select algo");
     }
     else
     {
-        instructions.setString("RUNNING - SPACE: pause | R: reset | TAB: next algo | +/-: size | 1-5: select algo");
+        instructions.setString("RUNNING - SPACE: pause | R: reset | TAB: next algo | +/-: size | 1-4: select algo");
     }
 }
 
