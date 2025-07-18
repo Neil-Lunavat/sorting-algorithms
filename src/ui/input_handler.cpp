@@ -26,6 +26,22 @@ InputHandler::Action InputHandler::handleInput(sf::RenderWindow &window)
                 return RESET;
             case sf::Keyboard::Tab:
                 return NEXT_ALGORITHM;
+            case sf::Keyboard::Equal: // Plus key (=)
+            case sf::Keyboard::Add:   // Numpad plus
+                return INCREASE_SIZE;
+            case sf::Keyboard::Hyphen:   // Minus key (-)
+            case sf::Keyboard::Subtract: // Numpad minus
+                return DECREASE_SIZE;
+            case sf::Keyboard::Num1:
+                return SELECT_ALGORITHM_1;
+            case sf::Keyboard::Num2:
+                return SELECT_ALGORITHM_2;
+            case sf::Keyboard::Num3:
+                return SELECT_ALGORITHM_3;
+            case sf::Keyboard::Num4:
+                return SELECT_ALGORITHM_4;
+            case sf::Keyboard::Num5:
+                return SELECT_ALGORITHM_5;
             case sf::Keyboard::Escape:
                 return QUIT;
             default:

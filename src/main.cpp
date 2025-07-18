@@ -32,6 +32,8 @@ int main()
     std::cout << "  LEFT/RIGHT - Step through algorithm" << std::endl;
     std::cout << "  R - Reset and randomize array" << std::endl;
     std::cout << "  TAB - Change algorithm" << std::endl;
+    std::cout << "  +/- - Increase/Decrease array size" << std::endl;
+    std::cout << "  1-5 - Select algorithm directly" << std::endl;
     std::cout << "  ESC - Quit" << std::endl;
 
     // Run visualizer

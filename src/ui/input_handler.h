@@ -15,6 +15,13 @@ public:
         TOGGLE_PAUSE,
         RESET,
         NEXT_ALGORITHM,
+        INCREASE_SIZE,
+        DECREASE_SIZE,
+        SELECT_ALGORITHM_1,
+        SELECT_ALGORITHM_2,
+        SELECT_ALGORITHM_3,
+        SELECT_ALGORITHM_4,
+        SELECT_ALGORITHM_5,
         QUIT
     };
 

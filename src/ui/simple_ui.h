@@ -7,10 +7,14 @@
 class SimpleUI
 {
 private:
+    sf::Font font;
     sf::Text algorithmName;
     sf::Text instructions;
     sf::Text arrayDisplay;
     sf::Text stepInfo;
+    sf::Text swapInfo;
+    sf::Text arraySize;
+    bool fontLoaded;
 
 public:
     bool initialize();
@@ -18,5 +22,7 @@ public:
     void updateInstructions(bool paused);
     void updateArrayDisplay(int array[], int size);
     void updateStepInfo(int step, bool complete);
+    void updateSwapInfo(int swaps);
+    void updateArraySize(int size);
     void render(sf::RenderWindow &window);
 };

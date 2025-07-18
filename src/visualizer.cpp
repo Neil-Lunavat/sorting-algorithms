@@ -8,13 +8,24 @@
 const float SortingVisualizer::FRAME_DURATION = 1.0f / 60.0f;
 
 SortingVisualizer::SortingVisualizer(sf::RenderWindow &win)
-    : window(win), currentAlgorithm(nullptr), currentAlgorithmIndex(0),
-      isPaused(true), stepCount(0), highlightIndex1(-1), highlightIndex2(-1),
+    : window(win), array(nullptr), originalArray(nullptr), arraySize(7),
+      currentAlgorithm(nullptr), currentAlgorithmIndex(0),
+      isPaused(true), stepCount(0), swapCount(0), highlightIndex1(-1), highlightIndex2(-1),
       sortingComplete(false)
 {
+    // Allocate dynamic arrays
+    array = new int[MAX_ARRAY_SIZE];
+    originalArray = new int[MAX_ARRAY_SIZE];
 
     // Initialize array with simple values
     initializeArray();
+}
+
+SortingVisualizer::~SortingVisualizer()
+{
+    // Clean up dynamic arrays
+    delete[] array;
+    delete[] originalArray;
 }
 
 bool SortingVisualizer::initialize()
@@ -52,8 +63,8 @@ bool SortingVisualizer::initialize()
 
 void SortingVisualizer::initializeArray()
 {
-    // Create a simple array with values 1 to ARRAY_SIZE
-    for (int i = 0; i < ARRAY_SIZE; i++)
+    // Create a simple array with values 1 to arraySize
+    for (int i = 0; i < arraySize; i++)
     {
         array[i] = i + 1;
     }
@@ -62,14 +73,17 @@ void SortingVisualizer::initializeArray()
     randomizeArray();
 
     // Save original for reset
-    std::memcpy(originalArray, array, sizeof(array));
+    for (int i = 0; i < arraySize; i++)
+    {
+        originalArray[i] = array[i];
+    }
 }
 
 void SortingVisualizer::randomizeArray()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::shuffle(array, array + ARRAY_SIZE, gen);
+    std::shuffle(array, array + arraySize, gen);
 }
 
 void SortingVisualizer::resetAlgorithm()
@@ -78,13 +92,17 @@ void SortingVisualizer::resetAlgorithm()
         return;
 
     // Reset array to original state
-    std::memcpy(array, originalArray, sizeof(array));
+    for (int i = 0; i < arraySize; i++)
+    {
+        array[i] = originalArray[i];
+    }
 
     // Clear algorithm state
     std::memset(algorithmState, 0, sizeof(algorithmState));
 
     // Reset visualization state
     stepCount = 0;
+    swapCount = 0;
     highlightIndex1 = -1;
     highlightIndex2 = -1;
     sortingComplete = false;
@@ -92,8 +110,10 @@ void SortingVisualizer::resetAlgorithm()
     // Update UI
     ui.updateAlgorithmName(currentAlgorithm->name);
     ui.updateInstructions(isPaused);
-    ui.updateArrayDisplay(array, ARRAY_SIZE);
+    ui.updateArrayDisplay(array, arraySize);
     ui.updateStepInfo(stepCount, sortingComplete);
+    ui.updateSwapInfo(swapCount);
+    ui.updateArraySize(arraySize);
 }
 
 void SortingVisualizer::stepForward()
@@ -101,13 +121,14 @@ void SortingVisualizer::stepForward()
     if (!currentAlgorithm || sortingComplete)
         return;
 
-    SwapResult result = currentAlgorithm->function(array, ARRAY_SIZE, algorithmState);
+    SwapResult result = currentAlgorithm->function(array, arraySize, algorithmState);
 
     if (result.swapped)
     {
         highlightIndex1 = result.index1;
         highlightIndex2 = result.index2;
         stepCount++;
+        swapCount++;
     }
     else
     {
@@ -118,8 +139,9 @@ void SortingVisualizer::stepForward()
     sortingComplete = result.isComplete;
 
     // Update UI
-    ui.updateArrayDisplay(array, ARRAY_SIZE);
+    ui.updateArrayDisplay(array, arraySize);
     ui.updateStepInfo(stepCount, sortingComplete);
+    ui.updateSwapInfo(swapCount);
 }
 
 void SortingVisualizer::stepBackward()
@@ -136,6 +158,47 @@ void SortingVisualizer::nextAlgorithm()
 
     currentAlgorithmIndex = (currentAlgorithmIndex + 1) % algorithmCount;
     currentAlgorithm = getAlgorithmByIndex(currentAlgorithmIndex);
+    resetAlgorithm();
+}
+
+void SortingVisualizer::selectAlgorithm(int algorithmIndex)
+{
+    int algorithmCount = getAlgorithmCount();
+    if (algorithmIndex >= 0 && algorithmIndex < algorithmCount)
+    {
+        currentAlgorithmIndex = algorithmIndex;
+        currentAlgorithm = getAlgorithmByIndex(currentAlgorithmIndex);
+        resetAlgorithm();
+    }
+}
+
+void SortingVisualizer::increaseArraySize()
+{
+    if (arraySize < MAX_ARRAY_SIZE)
+    {
+        resizeArray(arraySize + 1);
+    }
+}
+
+void SortingVisualizer::decreaseArraySize()
+{
+    if (arraySize > MIN_ARRAY_SIZE)
+    {
+        resizeArray(arraySize - 1);
+    }
+}
+
+void SortingVisualizer::resizeArray(int newSize)
+{
+    if (newSize < MIN_ARRAY_SIZE || newSize > MAX_ARRAY_SIZE)
+        return;
+
+    arraySize = newSize;
+
+    // Reinitialize array with new size
+    initializeArray();
+
+    // Reset algorithm with new array
     resetAlgorithm();
 }
 
@@ -160,12 +223,43 @@ void SortingVisualizer::update()
 
     case InputHandler::RESET:
         randomizeArray();
-        std::memcpy(originalArray, array, sizeof(array));
+        for (int i = 0; i < arraySize; i++)
+        {
+            originalArray[i] = array[i];
+        }
         resetAlgorithm();
         break;
 
     case InputHandler::NEXT_ALGORITHM:
         nextAlgorithm();
+        break;
+
+    case InputHandler::INCREASE_SIZE:
+        increaseArraySize();
+        break;
+
+    case InputHandler::DECREASE_SIZE:
+        decreaseArraySize();
+        break;
+
+    case InputHandler::SELECT_ALGORITHM_1:
+        selectAlgorithm(0);
+        break;
+
+    case InputHandler::SELECT_ALGORITHM_2:
+        selectAlgorithm(1);
+        break;
+
+    case InputHandler::SELECT_ALGORITHM_3:
+        selectAlgorithm(2);
+        break;
+
+    case InputHandler::SELECT_ALGORITHM_4:
+        selectAlgorithm(3);
+        break;
+
+    case InputHandler::SELECT_ALGORITHM_5:
+        selectAlgorithm(4);
         break;
 
     case InputHandler::QUIT:
@@ -189,7 +283,7 @@ void SortingVisualizer::render()
     window.clear(sf::Color::Black);
 
     // Update and render bars
-    barRenderer.updateBars(array, ARRAY_SIZE, highlightIndex1, highlightIndex2);
+    barRenderer.updateBars(array, arraySize, highlightIndex1, highlightIndex2);
     barRenderer.render(window);
 
     // Render UI

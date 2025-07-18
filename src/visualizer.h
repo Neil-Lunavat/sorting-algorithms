@@ -12,15 +12,17 @@
 class SortingVisualizer
 {
 private:
-    static const int ARRAY_SIZE = 7;
-    static const int MAX_STATE_SIZE = 10;
+    static const int MIN_ARRAY_SIZE = 3;
+    static const int MAX_ARRAY_SIZE = 50;
+    static const int MAX_STATE_SIZE = 20;
 
     // Window reference (needs to be first for initialization order)
     sf::RenderWindow &window;
 
-    // Core data
-    int array[ARRAY_SIZE];
-    int originalArray[ARRAY_SIZE]; // For reset functionality
+    // Core data - now dynamic
+    int *array;
+    int *originalArray;
+    int arraySize;
     int algorithmState[MAX_STATE_SIZE];
 
     // Current algorithm
@@ -30,6 +32,7 @@ private:
     // Visualization state
     bool isPaused;
     int stepCount;
+    int swapCount;
     int highlightIndex1, highlightIndex2;
     bool sortingComplete;
 
@@ -44,6 +47,7 @@ private:
 
 public:
     SortingVisualizer(sf::RenderWindow &win);
+    ~SortingVisualizer(); // Destructor to clean up dynamic arrays
     bool initialize();
     void run();
 
@@ -53,6 +57,10 @@ private:
     void stepForward();
     void stepBackward(); // For future implementation
     void nextAlgorithm();
+    void selectAlgorithm(int algorithmIndex);
+    void increaseArraySize();
+    void decreaseArraySize();
+    void resizeArray(int newSize);
     void update();
     void render();
     void randomizeArray();

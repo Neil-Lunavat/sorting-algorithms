@@ -4,6 +4,8 @@
 extern SwapResult bubbleSort(int array[], int size, int *state);
 extern SwapResult selectionSort(int array[], int size, int *state);
 extern SwapResult insertionSort(int array[], int size, int *state);
+extern SwapResult shellSort(int array[], int size, int *state);
+extern SwapResult mergeSort(int array[], int size, int *state);
 
 /**
  * Register all algorithms explicitly
@@ -14,4 +16,6 @@ void registerAllAlgorithms()
     registerAlgorithm("Bubble Sort", bubbleSort, 2);
     registerAlgorithm("Selection Sort", selectionSort, 3);
     registerAlgorithm("Insertion Sort", insertionSort, 3);
+    registerAlgorithm("Shell Sort", shellSort, 5);
+    registerAlgorithm("Merge Sort", mergeSort, 17);
 }
