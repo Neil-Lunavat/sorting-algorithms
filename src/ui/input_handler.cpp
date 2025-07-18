@@ -42,6 +42,20 @@ InputHandler::Action InputHandler::handleInput(sf::RenderWindow &window)
                 return SELECT_ALGORITHM_4;
             case sf::Keyboard::Num5:
                 return SELECT_ALGORITHM_5;
+            case sf::Keyboard::Num6:
+                return SELECT_ALGORITHM_6;
+            case sf::Keyboard::Num7:
+                return SELECT_ALGORITHM_7;
+            case sf::Keyboard::Num8:
+                return SELECT_ALGORITHM_8;
+            case sf::Keyboard::Num9:
+                return SELECT_ALGORITHM_9;
+            case sf::Keyboard::Num0:
+                return SELECT_ALGORITHM_10;
+            case sf::Keyboard::C:
+                return TOGGLE_COMPARISON_MODE;
+            case sf::Keyboard::S:
+                return COMPARISON_STEP_FORWARD;
             case sf::Keyboard::Escape:
                 return QUIT;
             default:

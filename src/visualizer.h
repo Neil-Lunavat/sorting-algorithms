@@ -4,6 +4,7 @@
 #include "ui/simple_ui.h"
 #include "ui/bar_renderer.h"
 #include "ui/input_handler.h"
+#include "ui/algorithm_comparison.h"
 
 /**
  * Main sorting visualizer class
@@ -35,6 +36,7 @@ private:
     int swapCount;
     int highlightIndex1, highlightIndex2;
     bool sortingComplete;
+    bool comparisonModeActive;
 
     // Frame timing
     sf::Clock frameClock;
@@ -44,6 +46,7 @@ private:
     SimpleUI ui;
     BarRenderer barRenderer;
     InputHandler inputHandler;
+    AlgorithmComparison comparisonMode;
 
 public:
     SortingVisualizer(sf::RenderWindow &win);
@@ -64,4 +67,8 @@ private:
     void update();
     void render();
     void randomizeArray();
+    
+private:
+    void updateAlgorithmInfo();
+    void updateArrayStats();
 };

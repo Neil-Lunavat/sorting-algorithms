@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/SortingVisualizer.dir/algorithms/algorithm_registry.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/algorithm_registry.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/bubble_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/bubble_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/insertion_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/insertion_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/merge_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/merge_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/quick_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/quick_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/radix_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/radix_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/register_algorithms.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/register_algorithms.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/selection_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/selection_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/shell_sort.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/algorithms/shell_sort.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/main.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/main.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/algorithm_comparison.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/algorithm_comparison.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/bar_renderer.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/bar_renderer.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/input_handler.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/input_handler.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/simple_ui.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/ui/simple_ui.cpp.obj.d"
+  "CMakeFiles/SortingVisualizer.dir/src/visualizer.cpp.obj"
+  "CMakeFiles/SortingVisualizer.dir/src/visualizer.cpp.obj.d"
+  "bin/SortingVisualizer.exe"
+  "bin/SortingVisualizer.exe.manifest"
+  "bin/SortingVisualizer.pdb"
+  "libSortingVisualizer.dll.a"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/SortingVisualizer.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

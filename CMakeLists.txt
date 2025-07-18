@@ -18,6 +18,7 @@ add_executable(${PROJECT_NAME}
     src/ui/simple_ui.cpp
     src/ui/bar_renderer.cpp
     src/ui/input_handler.cpp
+    src/ui/algorithm_comparison.cpp
     algorithms/algorithm_registry.cpp
     ${ALGORITHM_SOURCES}
 )

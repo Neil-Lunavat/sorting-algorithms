@@ -14,6 +14,9 @@ private:
     sf::Text stepInfo;
     sf::Text swapInfo;
     sf::Text arraySize;
+    sf::Text complexityInfo;
+    sf::Text algorithmDescription;
+    sf::Text arrayStats;
     bool fontLoaded;
 
 public:
@@ -24,5 +27,8 @@ public:
     void updateStepInfo(int step, bool complete);
     void updateSwapInfo(int swaps);
     void updateArraySize(int size);
+    void updateComplexityInfo(const char* best, const char* avg, const char* worst);
+    void updateAlgorithmDescription(const char* description);
+    void updateArrayStats(int min, int max, int median);
     void render(sf::RenderWindow &window);
 };

@@ -8,10 +8,10 @@ class BarRenderer
 {
 private:
     static const int MAX_ARRAY_SIZE = 50;
-    static const int WINDOW_WIDTH = 800;
-    static const int WINDOW_HEIGHT = 600;
-    static const int BAR_AREA_HEIGHT = 300;
-    static const int BAR_Y_OFFSET = 200;
+    static const int WINDOW_WIDTH = 1280;
+    static const int WINDOW_HEIGHT = 720;
+    static const int BAR_AREA_HEIGHT = 400;
+    static const int BAR_Y_OFFSET = 300;
 
     sf::RectangleShape bars[MAX_ARRAY_SIZE];
     sf::Color normalColor;

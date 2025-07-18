@@ -13,10 +13,11 @@ cd /d "%~dp0"
 echo Compiling new visualizer...
 g++ -std=c++17 -Wall -O2 -mwindows ^
     src/main.cpp src/visualizer.cpp ^
-    src/ui/simple_ui.cpp src/ui/bar_renderer.cpp src/ui/input_handler.cpp ^
+    src/ui/simple_ui.cpp src/ui/bar_renderer.cpp src/ui/input_handler.cpp src/ui/algorithm_comparison.cpp ^
     algorithms/algorithm_registry.cpp algorithms/register_algorithms.cpp ^
     algorithms/bubble_sort.cpp algorithms/selection_sort.cpp ^
     algorithms/shell_sort.cpp algorithms/merge_sort.cpp ^
+    algorithms/quick_sort.cpp algorithms/radix_sort.cpp ^
     -lsfml-graphics -lsfml-window -lsfml-system ^
     -o build/SortingVisualizer.exe
 
@@ -34,10 +35,11 @@ if %ERRORLEVEL% EQU 0 (
     echo Error details:
     g++ -std=c++17 -Wall -O2 ^
         src/main.cpp src/visualizer.cpp ^
-        src/ui/simple_ui.cpp src/ui/bar_renderer.cpp src/ui/input_handler.cpp ^
+        src/ui/simple_ui.cpp src/ui/bar_renderer.cpp src/ui/input_handler.cpp src/ui/algorithm_comparison.cpp ^
         algorithms/algorithm_registry.cpp algorithms/register_algorithms.cpp ^
         algorithms/bubble_sort.cpp algorithms/selection_sort.cpp ^
         algorithms/shell_sort.cpp algorithms/merge_sort.cpp ^
+        algorithms/quick_sort.cpp algorithms/radix_sort.cpp ^
         -lsfml-graphics -lsfml-window -lsfml-system ^
         -o build/SortingVisualizer.exe
     exit /b 1

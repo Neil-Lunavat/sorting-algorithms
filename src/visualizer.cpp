@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
+#include <cstring>
 
 const float SortingVisualizer::FRAME_DURATION = 1.0f / 60.0f;
 
@@ -11,7 +12,7 @@ SortingVisualizer::SortingVisualizer(sf::RenderWindow &win)
     : window(win), array(nullptr), originalArray(nullptr), arraySize(7),
       currentAlgorithm(nullptr), currentAlgorithmIndex(0),
       isPaused(true), stepCount(0), swapCount(0), highlightIndex1(-1), highlightIndex2(-1),
-      sortingComplete(false)
+      sortingComplete(false), comparisonModeActive(false)
 {
     // Allocate dynamic arrays
     array = new int[MAX_ARRAY_SIZE];
@@ -32,6 +33,9 @@ bool SortingVisualizer::initialize()
 {
     // Initialize UI (always succeeds now)
     ui.initialize();
+
+    // Initialize comparison mode
+    comparisonMode.initialize();
 
     // Check if algorithms are registered
     int algorithmCount = getAlgorithmCount();
@@ -109,6 +113,10 @@ void SortingVisualizer::resetAlgorithm()
     ui.updateStepInfo(stepCount, sortingComplete);
     ui.updateSwapInfo(swapCount);
     ui.updateArraySize(arraySize);
+    
+    // Update algorithm-specific information
+    updateAlgorithmInfo();
+    updateArrayStats();
 }
 
 void SortingVisualizer::stepForward()
@@ -137,6 +145,7 @@ void SortingVisualizer::stepForward()
     ui.updateArrayDisplay(array, arraySize);
     ui.updateStepInfo(stepCount, sortingComplete);
     ui.updateSwapInfo(swapCount);
+    updateArrayStats();
 }
 
 void SortingVisualizer::stepBackward()
@@ -204,8 +213,15 @@ void SortingVisualizer::update()
     switch (action)
     {
     case InputHandler::TOGGLE_PAUSE:
-        isPaused = !isPaused;
-        ui.updateInstructions(isPaused);
+        if (comparisonModeActive)
+        {
+            comparisonMode.togglePause();
+        }
+        else
+        {
+            isPaused = !isPaused;
+            ui.updateInstructions(isPaused);
+        }
         break;
 
     case InputHandler::STEP_FORWARD:
@@ -217,12 +233,19 @@ void SortingVisualizer::update()
         break;
 
     case InputHandler::RESET:
-        randomizeArray();
-        for (int i = 0; i < arraySize; i++)
+        if (comparisonModeActive)
         {
-            originalArray[i] = array[i];
+            comparisonMode.reset();
         }
-        resetAlgorithm();
+        else
+        {
+            randomizeArray();
+            for (int i = 0; i < arraySize; i++)
+            {
+                originalArray[i] = array[i];
+            }
+            resetAlgorithm();
+        }
         break;
 
     case InputHandler::NEXT_ALGORITHM:
@@ -256,6 +279,43 @@ void SortingVisualizer::update()
     case InputHandler::SELECT_ALGORITHM_5:
         selectAlgorithm(4);
         break;
+    case InputHandler::SELECT_ALGORITHM_6:
+        selectAlgorithm(5);
+        break;
+    case InputHandler::SELECT_ALGORITHM_7:
+        selectAlgorithm(6);
+        break;
+    case InputHandler::SELECT_ALGORITHM_8:
+        selectAlgorithm(7);
+        break;
+    case InputHandler::SELECT_ALGORITHM_9:
+        selectAlgorithm(8);
+        break;
+    case InputHandler::SELECT_ALGORITHM_10:
+        selectAlgorithm(9);
+        break;
+
+    case InputHandler::TOGGLE_COMPARISON_MODE:
+        comparisonModeActive = !comparisonModeActive;
+        if (comparisonModeActive)
+        {
+            comparisonMode.reset();
+        }
+        break;
+
+    case InputHandler::COMPARISON_STEP_FORWARD:
+        if (comparisonModeActive)
+        {
+            comparisonMode.stepForward();
+        }
+        break;
+
+    case InputHandler::COMPARISON_RESET:
+        if (comparisonModeActive)
+        {
+            comparisonMode.reset();
+        }
+        break;
 
     case InputHandler::QUIT:
         window.close();
@@ -266,9 +326,19 @@ void SortingVisualizer::update()
     }
 
     // Auto-step if not paused and frame time has elapsed
-    if (!isPaused && !sortingComplete && frameClock.getElapsedTime().asSeconds() >= FRAME_DURATION)
+    if (frameClock.getElapsedTime().asSeconds() >= FRAME_DURATION)
     {
-        stepForward();
+        if (comparisonModeActive)
+        {
+            if (!comparisonMode.isPausedState() && !comparisonMode.isComplete())
+            {
+                comparisonMode.stepForward();
+            }
+        }
+        else if (!isPaused && !sortingComplete)
+        {
+            stepForward();
+        }
         frameClock.restart();
     }
 }
@@ -277,14 +347,102 @@ void SortingVisualizer::render()
 {
     window.clear(sf::Color::Black);
 
-    // Update and render bars
-    barRenderer.updateBars(array, arraySize, highlightIndex1, highlightIndex2);
-    barRenderer.render(window);
+    if (comparisonModeActive)
+    {
+        // Render comparison mode
+        comparisonMode.render(window);
+    }
+    else
+    {
+        // Update and render bars
+        barRenderer.updateBars(array, arraySize, highlightIndex1, highlightIndex2);
+        barRenderer.render(window);
 
-    // Render UI
-    ui.render(window);
+        // Render UI
+        ui.render(window);
+    }
 
     window.display();
+}
+
+void SortingVisualizer::updateAlgorithmInfo()
+{
+    if (!currentAlgorithm)
+        return;
+
+    const char* best = "O(n)";
+    const char* avg = "O(n²)";
+    const char* worst = "O(n²)";
+    const char* description = "Basic comparison sort";
+
+    // Set algorithm-specific information
+    if (strcmp(currentAlgorithm->name, "Bubble Sort") == 0)
+    {
+        best = "O(n)";
+        avg = "O(n²)";
+        worst = "O(n²)";
+        description = "Compares adjacent elements and swaps if in wrong order";
+    }
+    else if (strcmp(currentAlgorithm->name, "Selection Sort") == 0)
+    {
+        best = "O(n²)";
+        avg = "O(n²)";
+        worst = "O(n²)";
+        description = "Finds minimum element and places at beginning";
+    }
+    else if (strcmp(currentAlgorithm->name, "Shell Sort") == 0)
+    {
+        best = "O(n log n)";
+        avg = "O(n^1.5)";
+        worst = "O(n²)";
+        description = "Improved insertion sort with gap sequences";
+    }
+    else if (strcmp(currentAlgorithm->name, "Merge Sort") == 0)
+    {
+        best = "O(n log n)";
+        avg = "O(n log n)";
+        worst = "O(n log n)";
+        description = "Divide and conquer with stable sorting";
+    }
+    else if (strcmp(currentAlgorithm->name, "Quick Sort") == 0)
+    {
+        best = "O(n log n)";
+        avg = "O(n log n)";
+        worst = "O(n²)";
+        description = "Divide and conquer with pivot selection";
+    }
+    else if (strcmp(currentAlgorithm->name, "Radix Sort") == 0)
+    {
+        best = "O(nk)";
+        avg = "O(nk)";
+        worst = "O(nk)";
+        description = "Non-comparison sort using digit distribution";
+    }
+
+    ui.updateComplexityInfo(best, avg, worst);
+    ui.updateAlgorithmDescription(description);
+}
+
+void SortingVisualizer::updateArrayStats()
+{
+    if (arraySize <= 0)
+        return;
+
+    int min = array[0];
+    int max = array[0];
+    int sum = array[0];
+
+    for (int i = 1; i < arraySize; i++)
+    {
+        if (array[i] < min) min = array[i];
+        if (array[i] > max) max = array[i];
+        sum += array[i];
+    }
+
+    // Calculate median (simplified - just middle element for odd size)
+    int median = array[arraySize / 2];
+
+    ui.updateArrayStats(min, max, median);
 }
 
 void SortingVisualizer::run()

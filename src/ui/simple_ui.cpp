@@ -60,6 +60,27 @@ bool SimpleUI::initialize()
     if (fontLoaded)
         arraySize.setFont(font);
 
+    // Setup complexity info text
+    complexityInfo.setCharacterSize(14);
+    complexityInfo.setFillColor(sf::Color::Yellow);
+    complexityInfo.setPosition(20, 190);
+    if (fontLoaded)
+        complexityInfo.setFont(font);
+
+    // Setup algorithm description text
+    algorithmDescription.setCharacterSize(12);
+    algorithmDescription.setFillColor(sf::Color::Cyan);
+    algorithmDescription.setPosition(20, 220);
+    if (fontLoaded)
+        algorithmDescription.setFont(font);
+
+    // Setup array stats text
+    arrayStats.setCharacterSize(14);
+    arrayStats.setFillColor(sf::Color::White);
+    arrayStats.setPosition(20, 250);
+    if (fontLoaded)
+        arrayStats.setFont(font);
+
     return true;
 }
 
@@ -72,11 +93,11 @@ void SimpleUI::updateInstructions(bool paused)
 {
     if (paused)
     {
-        instructions.setString("PAUSED - SPACE: resume | LEFT/RIGHT: step | R: reset | TAB: next algo | +/-: size | 1-4: select algo");
+        instructions.setString("PAUSED - SPACE: resume | LEFT/RIGHT: step | R: reset | TAB: next algo | +/-: size | 1-6: select algo | C: comparison mode");
     }
     else
     {
-        instructions.setString("RUNNING - SPACE: pause | R: reset | TAB: next algo | +/-: size | 1-4: select algo");
+        instructions.setString("RUNNING - SPACE: pause | R: reset | TAB: next algo | +/-: size | 1-6: select algo | C: comparison mode");
     }
 }
 
@@ -122,6 +143,25 @@ void SimpleUI::updateArraySize(int size)
     arraySize.setString(oss.str());
 }
 
+void SimpleUI::updateComplexityInfo(const char* best, const char* avg, const char* worst)
+{
+    std::ostringstream oss;
+    oss << "Complexity - Best: " << best << " | Avg: " << avg << " | Worst: " << worst;
+    complexityInfo.setString(oss.str());
+}
+
+void SimpleUI::updateAlgorithmDescription(const char* description)
+{
+    algorithmDescription.setString(description);
+}
+
+void SimpleUI::updateArrayStats(int min, int max, int median)
+{
+    std::ostringstream oss;
+    oss << "Array Stats - Min: " << min << " | Max: " << max << " | Median: " << median;
+    arrayStats.setString(oss.str());
+}
+
 void SimpleUI::render(sf::RenderWindow &window)
 {
     window.draw(algorithmName);
@@ -130,4 +170,7 @@ void SimpleUI::render(sf::RenderWindow &window)
     window.draw(stepInfo);
     window.draw(swapInfo);
     window.draw(arraySize);
+    window.draw(complexityInfo);
+    window.draw(algorithmDescription);
+    window.draw(arrayStats);
 }
